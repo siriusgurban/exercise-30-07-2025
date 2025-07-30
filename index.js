@@ -12,7 +12,7 @@ let books = [
     title: "Kitabın adı",
     author: "Müəllifin adı",
     details: "Kitab haqqında qısa məlumat",
-    year: 2023,
+    year: 2024,
     is_read: false,
   },
   {
@@ -20,7 +20,7 @@ let books = [
     title: "Kitabın adı",
     author: "Müəllifin adı",
     details: "Kitab haqqında qısa məlumat",
-    year: 2023,
+    year: 2025,
     is_read: false,
   },
 ];
@@ -47,6 +47,9 @@ function swithcer() {
       break;
     case 6:
       deleteById(books);
+      break;
+    case 7:
+      sortBy(books);
       break;
 
     default:
@@ -94,6 +97,7 @@ function editBook(books) {
 
   //   console.log(`Your edited book is: ${book}`);
   console.log(`Your edited book is:books.find((book) => book.id === id)`);
+  console.log(books, "books in edited fn");
 }
 
 function showAll(books) {
@@ -129,12 +133,18 @@ function isRead(books) {
 
 function deleteById(books) {
   const id = +prompt("Enter id");
-  const book = books.find((book) => book.id === id);
-  if (book) {
-    books.splice(books.indexOf(book), 1);
-    console.log(`Book ${book.title} deleted`);
-    showAll(books)
+  books = books.filter((book) => book.id !== id);
+  console.log(`Book deleted`);
+  return showAll(books);
+}
+
+function sortBy(books) {
+  const type = prompt("asc or desc");
+  if (type == "asc") {
+    books.sort((a, b) => a.year - b.year);
+    showAll(books);
   } else {
-    alert(`There is no book by ${id}`);
+    books.sort((a, b) => b.year - a.year);
+    showAll(books);
   }
 }
